@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+
+  </head>
+  <body>
+
+
+    <script type="text/javascript">
+      class Gs{
+        constructor(str){
+          this.gs = str
+        }
+        qd(){//求导
+          let gs = this.gs.split('+').map(item=>{
+            if(item.includes('x')){
+              let mi = item[item.indexOf(',')+1]-0//x的幂
+              let m = mi*item.split('*')[0]//求导后的基数
+              return `${m}*Math.pow(x,${mi-1})`
+            }else{
+              return 0 //求导后去除常数
+            }
+          }).join('+')
+          return new Gs(gs)
+        }
+        run(x){//运行计算
+          return eval(this.gs.replaceAll('x',x))
+        }
+      }
+      
+
+      function aa(points) {
+        let m = 0,
+          d = 0
+        if (points[0][0] - points[1][0] !== 0) {
+          m = (points[0][1] - points[1][1]) / (points[0][0] - points[1][0])
+          d = points[0][1] - m * points[0][0]
+        }
+        return `${m}*Math.pow(x,1)+${d}`
+      }
+      let a = aa([
+        [1, 1],
+        [2, 0]
+      ])
+      let gs = new Gs(a)
+      
+    </script>
+
+  </body>
+</html>
